@@ -5,7 +5,6 @@ class graphite::packages {
           'RedHat': {
                 $require = Yumrepo['epel']
                 $packs   = ["python-carbon", "graphite-web"]
-                $carbon_bin = "carbon-cache"
                 package {
                   $packs:
                     require => $require,
@@ -15,10 +14,15 @@ class graphite::packages {
           }
           'Debian': {
                 $packs   = ["graphite-carbon", "graphite-web"]
-                $carbon_bin = "carbon-cache"
                 package {
                   $packs:                 
                     ensure => "installed";
+                }
+                
+                file {
+                  "/etc/default/graphite-carbon":
+                    content => "CARBON_CACHE_ENABLED=true",
+                    require => Package['graphite-carbon']
                 }
           }
   }
