@@ -17,6 +17,11 @@ class graphite::config {
                 $graphite_conf_file    = "/etc/graphite/local_settings.py"
                 $graphite_apache_file  = "/etc/apache2/conf-available/apache2-graphite.conf"
                 $graphite_cmd          = "/usr/bin/graphite-manage"
+                
+                file { "/etc/apache2/conf-enabled/apache2-graphite.conf"
+                      ensure => link,
+                      target => $graphite_apache_file,
+                }
           }
         }
 
