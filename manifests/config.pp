@@ -10,10 +10,11 @@ class graphite::config {
    case $::osfamily {
           'RedHat': {
                 $graphite_conf_file = "/etc/graphite-web/local_settings.py"
-                
+                $graphite_cmd = "/usr/lib/python2.6/site-packages/graphite/manage.py"
           }
           'Debian': {
                 $graphite_conf_file = "/etc/graphite/local_settings.py"
+                $graphite_cmd = "/usr/bin/graphite-manage"
           }
         }
 
@@ -30,5 +31,14 @@ class graphite::config {
       user     => $graphite_db_user,
       password => $graphite_db_password,
       host     => $graphite_db_host,      
+   }
+   
+   
+   exec {
+     'grpahite_syncdb':
+        command   => "$graphite_cmd syncdb",
+        logoutput => true,
+        unless    => "rabbitmqctl list_vhosts | grep '/sensu' > /dev/null",
+        require   => [ Mysql::Db["$graphite_db_name"], Class["mysql::python_connector"] ];
    }
 }
