@@ -24,5 +24,11 @@ class graphite::config {
                         ensure  => present,
                         content => template("graphite/${osfamily}/local_settings.py.erb"),
         }
-
+   
+   
+   mysql::db { $graphite_db_name:
+      user     => $graphite_db_user,
+      password => $graphite_db_password,
+      host     => $graphite_db_host,      
+   }
 }
