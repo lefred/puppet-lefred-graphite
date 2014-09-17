@@ -10,5 +10,5 @@ class graphite ( $graphite_db_name = "graphite",
   include graphite::service
   include graphite::config
  
-  Class['mysql'] -> Class['graphite::packages'] ->  Class['graphite::config'] ->  Class['graphite::service'] 
+  Class['mysql::config'] -> Class['graphite::packages'] ->  Class['graphite::config'] ->  Class['graphite::service'] 
 }
