@@ -10,6 +10,8 @@ class graphite::config {
    case $::osfamily {
           'RedHat': {
                 $graphite_conf_file = "/etc/graphite-web/local_settings.py"
+                
+                }
           }
           'Debian': {
                 $graphite_conf_file = "/etc/graphite/local_settings.py"
@@ -21,7 +23,7 @@ class graphite::config {
         file {
                 $graphite_conf_file:
                         ensure  => present,
-                        content => template("graphite/$:osfamily/my.cnf.erb"),
+                        content => template("graphite/${osfamily}/local_settings.py.erb"),
         }
 
 }
