@@ -9,12 +9,14 @@ class graphite::config {
 
    case $::osfamily {
           'RedHat': {
-                $graphite_conf_file = "/etc/graphite-web/local_settings.py"
-                $graphite_cmd = "/usr/lib/python2.6/site-packages/graphite/manage.py"
+                $graphite_conf_file    = "/etc/graphite-web/local_settings.py"
+                $graphite_apache_file  = "/etc/httpd/conf.d/graphite-web.conf"
+                $graphite_cmd          = "/usr/lib/python2.6/site-packages/graphite/manage.py"
           }
           'Debian': {
-                $graphite_conf_file = "/etc/graphite/local_settings.py"
-                $graphite_cmd = "/usr/bin/graphite-manage"
+                $graphite_conf_file    = "/etc/graphite/local_settings.py"
+                $graphite_apache_file  = "/etc/apache2/conf-available/apache2-graphite.conf"
+                $graphite_cmd          = "/usr/bin/graphite-manage"
           }
         }
 
@@ -23,7 +25,10 @@ class graphite::config {
         file {
                 $graphite_conf_file:
                         ensure  => present,
-                        content => template("graphite/${osfamily}/local_settings.py.erb"),
+                        content => template("graphite/${osfamily}/local_settings.py.erb");
+                $graphite_apache_file:                       
+                        ensure  => present,
+                        content => template("graphite/${osfamily}/graphite-web.conf.erb");
         }
    
    
