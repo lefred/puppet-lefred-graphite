@@ -35,7 +35,7 @@ class graphite::config {
    
    
    exec {
-     'grpahite_syncdb':
+     'graphite_syncdb':
         command   => "$graphite_cmd syncdb --noinput",
         logoutput => true,
         require   => [ Mysql::Db["$graphite_db_name"], Class["mysql::python_connector"] ];
