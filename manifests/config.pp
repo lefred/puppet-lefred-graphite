@@ -36,9 +36,8 @@ class graphite::config {
    
    exec {
      'grpahite_syncdb':
-        command   => "$graphite_cmd syncdb",
+        command   => "$graphite_cmd syncdb --noinput",
         logoutput => true,
-        unless    => "rabbitmqctl list_vhosts | grep '/sensu' > /dev/null",
         require   => [ Mysql::Db["$graphite_db_name"], Class["mysql::python_connector"] ];
    }
 }
