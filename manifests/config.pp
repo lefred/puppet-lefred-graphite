@@ -11,7 +11,6 @@ class graphite::config {
           'RedHat': {
                 $graphite_conf_file = "/etc/graphite-web/local_settings.py"
                 
-                }
           }
           'Debian': {
                 $graphite_conf_file = "/etc/graphite/local_settings.py"
