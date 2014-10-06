@@ -13,7 +13,7 @@ class graphite::packages {
                 
           }
           'Debian': {
-                $packs   = ["graphite-carbon", "graphite-web"]
+                $packs   = ["graphite-carbon", "graphite-web", "libapache2-mod-wsgi-py3"]
                 package {
                   $packs:                 
                     ensure => "installed";

@@ -22,6 +22,12 @@ class graphite::config {
                       ensure => link,
                       target => $graphite_apache_file,
                 }
+
+		exec { "install_header":
+		      cmd	=> "a2enmod headers",
+		      path      => "/sbin/:/usr/sbin/:/bin/:/usr/bin/",
+		      unless	=> "apache2ctl -t -D DUMP_MODULES | grep header 2>/dev/null",
+                }
           }
         }
 
