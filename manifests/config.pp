@@ -24,7 +24,7 @@ class graphite::config {
                 }
 
 		exec { "install_header":
-		      cmd	=> "a2enmod headers",
+		      command	=> "a2enmod headers",
 		      path      => "/sbin/:/usr/sbin/:/bin/:/usr/bin/",
 		      unless	=> "apache2ctl -t -D DUMP_MODULES | grep header 2>/dev/null",
                 }
