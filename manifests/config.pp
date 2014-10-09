@@ -23,10 +23,16 @@ class graphite::config {
                       target => $graphite_apache_file,
                 }
 
-		exec { "install_header":
+		exec { 
+		   "install_header":
 		      command	=> "a2enmod headers",
 		      path      => "/sbin/:/usr/sbin/:/bin/:/usr/bin/",
-		      unless	=> "apache2ctl -t -D DUMP_MODULES | grep header 2>/dev/null",
+		      unless	=> "apache2ctl -t -D DUMP_MODULES | grep header 2>/dev/null";
+		   "install_wsgi":
+		      command	=> "a2enmod wsgi",
+		      path      => "/sbin/:/usr/sbin/:/bin/:/usr/bin/",
+		      require   => Package['libapache2-mod-wsgi-py3'],
+		      unless	=> "apache2ctl -t -D DUMP_MODULES | grep wsgi 2>/dev/null";
                 }
           }
         }
